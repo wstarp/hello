@@ -1,0 +1,27 @@
+package net.oicp.model.${foder};
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class ${modleName}Info {
+	<#list tableList as list>
+	private String ${list.colName?lower_case};// ${list.cloComment}
+	</#list>
+	<#list tableList as list>
+	
+	/**
+	 * get ${list.cloComment}
+	 */
+	public String get${list.colName?lower_case?cap_first}() {
+		return ${list.colName?lower_case};
+	}
+	
+	/**
+	 * set ${list.cloComment}
+	 */
+    public void set${list.colName?lower_case?cap_first}(String ${list.colName?lower_case}) {
+        this.${list.colName?lower_case} = ${list.colName?lower_case};
+    }
+    
+	</#list>
+}

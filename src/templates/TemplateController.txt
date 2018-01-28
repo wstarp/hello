@@ -1,0 +1,153 @@
+package net.oicp.controller.${foder};
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import net.oicp.model.${foder}.${modleName}Info;
+import net.oicp.service.${foder}.${modleName}Service;
+import net.oicp.util.StringUtil;
+
+@Controller
+@RequestMapping("/${modleName?lower_case}")
+public class ${modleName}Controller {
+
+	@Autowired
+	private ${modleName}Service ${modleName?lower_case}service;
+	
+	/**
+	 * 跳转到页面
+	 * @param flag
+	 * @return
+	 */
+	@RequestMapping(value = "/to${modleName}", method = RequestMethod.GET)
+	public String ${modleName?lower_case}(String flag) {
+		if ("1".equals(flag)) {
+			return "${foder}/${modleName}";
+		} else {
+			return "admin";
+		}
+	}
+	
+	/**
+	 * <p>
+	 * Discription:[查询单条${modleCCName}]
+	 * </p>
+	 * 
+	 * @return
+	 * @author:${author}
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/get${modleName}InfoById", method = RequestMethod.POST)
+  	public ${modleName}Info get${modleName}InfoById(String id)  throws Exception{
+  		try {
+        	return ${modleName?lower_case}service.get${modleName}InfoById(id);
+        	}
+        catch (Exception e) {
+			return null;
+		}
+    }
+
+	/**
+	 * <p>
+	 * Discription:[查询${modleCCName}]
+	 * </p>
+	 * 
+	 * @return
+	 * @author:${author}
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/get${modleName}", method = RequestMethod.GET)
+	public List<${modleName}Info> get${modleName}() {
+	List<${modleName}Info> list = null;
+	try {
+		list = ${modleName?lower_case}service.get${modleName}();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	/**
+	 * 新增或修改 ${modleCCName}
+	 * @param info
+	 * @return
+	 */
+	@RequestMapping(value = "/save${modleName}", method = RequestMethod.POST)
+	public Map<String,Object> saveUsermanage(${modleName}Info info) {
+		if(StringUtil.isEmpty(info.getId())){
+			return addUserManage(info);
+		}else{
+			return modifyUserManage(info);
+		}
+	}
+
+	/**
+	 * <p>
+	 * Discription:[新增${modleCCName}]
+	 * </p>
+	 * @author:${author}
+	 */
+
+	/**
+	 * 新增${modleCCName}
+	 * @param info
+	 * @return
+	 */
+	public Map<String,Object> addUserManage(${modleName}Info info) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		try {
+			${modleName}Info ${modleName?lower_case} = ${modleName?lower_case}service.get${modleName}InfoById(info.getId());
+			if (null != ${modleName?lower_case}) {
+				map.put("code", "数据已存在，不能重复添加!");
+				return map;
+			}
+			// 添加用户
+			${modleName?lower_case}service.add${modleName}Info(info);
+			map.put("code", "1");
+		} catch (Exception e) {
+			map.put("code", e.toString());
+		}
+		return map;
+	}
+
+	/**
+	 * 更新用户
+	 * @param userManage
+	 * @return
+	 */
+	public Map<String,Object> modifyUserManage(${modleName}Info info) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		try {
+			// 修改用户
+			${modleName?lower_case}service.modify${modleName}Info(info);
+			map.put("code", "1");
+		} catch (Exception e) {
+			map.put("code", e.toString());
+		}
+		return map;
+	}
+
+	/**
+	 * <p>
+	 * Discription:[删除${modleCCName}]
+	 * </p>
+	 * @author:${author}
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete${modleName}(@RequestParam(value = "ids", required = true) String ids) {
+		try {
+			String[] theIds = ids.split(",");
+			${modleName?lower_case}service.delete${modleName}Info(theIds);
+			return "1";
+		} catch (Exception e) {
+			return "0";
+		}
+	}
+}

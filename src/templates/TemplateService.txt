@@ -1,0 +1,33 @@
+package net.oicp.service.${foder};
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import net.oicp.dao.${foder}.${modleName}Mapper;
+import net.oicp.model.${foder}.${modleName}Info;
+
+@Service("${modleName?lower_case}service")
+public class ${modleName}Service {
+    @Autowired
+    private ${modleName}Mapper ${modleName?lower_case}mapper;
+
+    public List<${modleName}Info> get${modleName}()  throws Exception{
+        return ${modleName?lower_case}mapper.get${modleName}();
+    }
+    
+    public ${modleName}Info get${modleName}InfoById(String id)  throws Exception{
+        return ${modleName?lower_case}mapper.get${modleName}InfoById(id);
+    }
+    
+    public void add${modleName}Info(${modleName}Info info)  throws Exception{
+        ${modleName?lower_case}mapper.add${modleName}Info(info);
+    }
+    
+    public void delete${modleName}Info(String[] theIds)  throws Exception{
+        ${modleName?lower_case}mapper.delete${modleName}Info(theIds);
+    }
+
+    public void modify${modleName}Info(${modleName}Info info)  throws Exception{
+        ${modleName?lower_case}mapper.modify${modleName}Info(info);
+    } 
+}

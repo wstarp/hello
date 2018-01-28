@@ -1,0 +1,17 @@
+package net.oicp.dao.${foder};
+
+import java.util.List;
+import net.oicp.model.${foder}.${modleName}Info;
+
+public interface ${modleName}Mapper {
+    public List<${modleName}Info> get${modleName}() throws Exception;
+
+    public ${modleName}Info get${modleName}InfoById(String id) throws Exception;
+
+    public void add${modleName}Info(${modleName}Info info) throws Exception;
+
+    public void delete${modleName}Info(String[] theIds) throws Exception;
+
+    public void modify${modleName}Info(${modleName}Info info) throws Exception;
+
+}
